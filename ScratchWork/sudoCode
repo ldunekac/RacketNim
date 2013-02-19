@@ -1,0 +1,110 @@
+// SUDO CODE
+
+// start game
+(Nim)
+
+define Nim
+    begin
+        print "Welcoem to Nim! What is your name?"
+        input Name
+        print "Please choose an option \n human, random, Smart"
+        if case human:
+            Ask for palyer 2 name (P1Name)
+        else:
+            initboard (P1 Name, CType, "")
+         
+define AskP2Name (P1Name)
+    begin
+        print "what is your Name?"
+        input Name
+        initboard(P1Name, Human, Name)
+  
+define initboard (P1Name, P2Type, p2Name)
+    define initNumofTwigs (board size)
+        case 1 return list random Number 1 - 15
+        case _ => cons randome Number 1 - 15 initNumofTwigs (size -1)
+    P1input(P1Name, P2Type, p2Name, intNumofTwigs(random 5 - 10))
+  
+define P1Input(P1Name, p2Type, p2Name, board)
+    begin
+        print P1Name " enter a row:"
+        input row
+        print "enter take amount:"
+        input take
+        if(!correctInput?)
+            P1input(P1Name, p2Type, p2Name, board) 
+        else
+           if won(updatebaord(board))
+                Win("p1", P1Name)
+            else
+                p2Input(P1Name, p2Type, p2Name, updateBaord(board))
+        
+
+P2Input(P1Name, p2Type, p2Name, board)
+    case Human => HP2input(P1Name, p2Type, p2Name, board)
+    case Random => RandomInput(P1Name, p2Type, p2Name, board)
+    case Smart => SmartInput(P1Name, p2Type, p2Name, board)
+    
+define HP2Input(P1Name, p2Type, p2Name, board)
+        begin
+        print P2Name " enter a row:"
+        input row
+        print "enter take amount:"
+        input take
+        if(!correctInput?)
+            HP2input(P1Name, p2Type, p2Name, board) 
+        else
+           if won(updatebaord(board))
+                Win("p2", P1Name)
+            else
+                p1Input(P1Name, p2Type, p2Name, updateBaord(board))
+        
+
+define RandomInput(P1Name, p2Type, p2Name, board)
+    define randNumsticks(Row)
+            cons row (random Numberat(row))
+    comCheck (..... updateboard (randomNumSticks(random length baord)))
+    
+define comCheck(P1Name, p2Type, p2Name, board)
+    if won(board)
+        Win("P2" "")
+    else
+    P1Input(P1Name, p2Type, p2Name, board)
+   
+    
+SmartInput(P1Name, p2Type, p2Name, board)
+    if(eq zero (apply bitwise-xor board)
+        RandomInput(P1Name, p2Type, p2Name, board)
+    else
+    CompCheck(...SmartSet(owWithMaxNumber, apply bitwise-xor (board))
+   
+define SmartSet (rowMax, xorNum)
+    case rowMax = 1 => cons (bitwise-xor xorNum, car board) (cdr board)
+    case _ => cons car baord SmartSet (.... cdr board, rowMax -1)
+    
+defin NumberAt(row board)
+    case eq row 1 => car board
+    case _ => NumberAt (row -1) (cdr board)
+    
+define correctInput?(board, row, many)
+   define correctTake(rowNumber, many)
+        if rowNumber <= many (true)(false)
+    
+    case (board null) false
+    case row = 1 => correctTake(car board, many)
+    case _ => correctINput?(cdr baord, (row -1), many)
+   
+updateBaord (borad, row, many)
+    case row == 1 => cons ((car row) - many) (cdr board)
+    case _ => updateBoard(cdr board, row -1 , many)
+    
+define Win(string (p1 or p2 or cmp), Name)       
+       case p1 => print "You win"
+       case _ => print "p2 won"
+       
+define rowWithMaxNumber(board)
+    define helper (board, maxRow, maxNumber, rowInc)
+        case null board => maxRow
+        case (car baord) > maxNumber => helper(cdr board, rowInc, (car Baord), rowInc+1)
+        case _ => maxNumber(cdr board, maxRow, maxNumber, rowInc + 1)
+        
