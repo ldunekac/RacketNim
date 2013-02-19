@@ -27,6 +27,7 @@ define initboard (P1Name, P2Type, p2Name)
   
 define P1Input(P1Name, p2Type, p2Name, board)
     begin
+        printboard(board)
         print P1Name " enter a row:"
         input row
         print "enter take amount:"
@@ -47,6 +48,7 @@ P2Input(P1Name, p2Type, p2Name, board)
     
 define HP2Input(P1Name, p2Type, p2Name, board)
         begin
+        print board
         print P2Name " enter a row:"
         input row
         print "enter take amount:"
@@ -108,3 +110,24 @@ define rowWithMaxNumber(board)
         case (car baord) > maxNumber => helper(cdr board, rowInc, (car Baord), rowInc+1)
         case _ => maxNumber(cdr board, maxRow, maxNumber, rowInc + 1)
         
+define printboard(baord)
+    define printXs rowVal
+        case num == 1 (fprintf "X")
+        case _ => begin (fprintf "X") (printXs rowVal -1 )
+    define printBoard1(board row)
+        case null board #t
+        case _=>
+            begin
+            fprintf("Row %i", row)
+            printXs(car baord)
+            printBoard1(cdr board, row + 1)
+    printBoard1(board , 1)
+    
+    
+    
+    /////////////////////
+    (fprintf (current-output-port)
+           "~a as a string is ~s.\n"
+           '(3 4)
+           "(3 4)")
+(3 4) as a string is "(3 4)".
