@@ -1,10 +1,11 @@
 #lang racket
 ;; (nim '((x x x x)(x)) '(human human))
-;; (nim '((x x x x)(x x x x x)(x x x x x x) (x x x x x x x x)) '(human smart))
+;; (nim '((x x x x)(x x x x x)(x x x x x x) (x x x x x x x x)) '(smart smart))
+
+(require racket/trace)
 
 (define (nim board players)
   (makeMove (makeNumberBoard board) players (list 1 2)))
-
 
 (define (makeNumberBoard board)
   (define (rowCount row acc)
@@ -14,6 +15,7 @@
        [else (cons (rowCount (car board) 0) (makeNumberBoard (cdr board)))]))
 
 (define (makeMove board players 1or2)
+  (display board)
   (if (end? board)
       (won (cadr 1or2)) 
       (begin (printBoard board 1or2)
@@ -21,6 +23,7 @@
              [(eq? 'random (car players)) (randomMove board players 1or2)]
              [else (smartMove board players 1or2)]))))
 
+(trace makeMove)
 
 (define (humanMove board players 1or2)
   (define (take row)
@@ -42,7 +45,6 @@
               (newline)
              (makeMove board players 1or2))))
   
-;; TO DO !!!!
 (define (randomMove board players 1or2)
   (define (valueAt board row)
     (cond [(empty? board) 0]
