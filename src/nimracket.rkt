@@ -1,5 +1,6 @@
 #lang racket
 ;; (nim '((x x x x)(x)) '(human human))
+;; (nim '((x x x x)(x x x x x)(x x x x x x) (x x x x x x x x)) '(human smart))
 
 (define (nim board players)
   (makeMove (makeNumberBoard board) players (list 1 2)))
@@ -20,7 +21,7 @@
              [(eq? 'random (car players)) (randomMove board players 1or2)]
              [else (smartMove board players 1or2)]))))
 
-;; TO DO!!!!!
+
 (define (humanMove board players 1or2)
   (define (take row)
     (display "How many do you want to take? ")
@@ -43,11 +44,26 @@
   
 ;; TO DO !!!!
 (define (randomMove board players 1or2)
-  (display "RANDOM"))
+  (define (valueAt board row)
+    (cond [(empty? board) 0]
+          [(= row 1) (car board)]
+          [else (valueAt (cdr board) (- row 1))]))
+  (define (pickMany board players 1or2 row)
+    (if (= 0 (valueAt board row))
+        (randomMove board players 1or2)
+        (makeMove (updateBoard board row (+ 1 (random (valueAt board row))))
+                  (reverse players) (reverse 1or2))))
+  (pickMany board players 1or2 (+ 1 (random (length board)))))
+
 
 ;; TODO !!!!
 (define (smartMove board players 1or2)
-  (display "SMART"))
+  (define (replaceBoard board players 1or2 bitValue)
+    (cond [(= bitValue 0) (randomMove board players 1or2)]
+          [(> (car board) (bitwise-xor (car board) bitValue))
+             (cons (bitwise-xor (car board) bitValue ) (cdr board))]
+          [else (cons (car board) (replaceBoard (cdr board) players 1or2 bitValue))]))
+  (makeMove (replaceBoard board players 1or2 (apply bitwise-xor board)) (reverse players) (reverse 1or2)))
 
 ;; Update
 (define (updateBoard board row many)
